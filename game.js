@@ -32,6 +32,7 @@ let score = 0;
 let level = 1;
 let cactusSpeed = 4;
 let birdSpeed = 6;
+let isPaused = false; // added variable for pause state
 
 function drawDino() {
     ctx.drawImage(dinoImg, dino.x, dino.y, DINO_WIDTH, DINO_HEIGHT);
@@ -119,11 +120,21 @@ function draw() {
     ctx.fillText("Dino Game", canvas.width - 10, canvas.height - 10);
 }
 
-
 function gameLoop() {
     update();
     draw();
     requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+const pauseButton = document.getElementById("pause-button");
+
+function togglePause() {
+    isPaused = !isPaused;
+    if (isPaused) {
+        pauseButton.textContent = "Resume";
+        gameLoop();
+    } else {
+        pauseButton.textContent = "Pause";
+    }
+}
+pauseButton.addEventListener("click", togglePause);
